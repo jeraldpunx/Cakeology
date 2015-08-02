@@ -37,11 +37,11 @@ Route::get('/', ['as'=>'home', function(){
 	// }
 }]);
 //NORMAL
-Route::get('login', 				['as'=>'login',    'uses'=>'UsersController@showLogin'])->before('guest');
+Route::get('login', 				['as'=>'login',    	'uses'=>'UsersController@showLogin'])->before('guest');
 Route::post('login', 				'UsersController@doLogin');
-Route::get('login/fb', 				'LoginFacebookController@login');
+Route::get('login/fb', 				['as'=>'fblogin', 	'uses'=>'LoginFacebookController@login']);
 Route::get('login/fb/callback',  	'LoginFacebookController@callback');
-Route::get('logout', 				['as'=>'logout',   'uses'=>'UsersController@logout'])->before('auth');
-// Route::get('register', 				['as'=>'register', 'uses'=>'UsersController@create'])->before('guest');
-// Route::post('register', 			'UsersController@store');
+Route::get('logout', 				['as'=>'logout',   	'uses'=>'UsersController@logout'])->before('auth');
+Route::get('register', 				['as'=>'register', 	'uses'=>'UsersController@create'])->before('guest');
+Route::post('register', 			'UsersController@store');
 

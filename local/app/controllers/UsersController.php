@@ -80,10 +80,4 @@ class UsersController extends \BaseController {
 		    	->with('flash_error', 'Validation Errors!');
 	    }
 	}
-
-	public function logout() {
-		Auth::logout();
-
-		return Redirect::to('/');
-	}
 }
