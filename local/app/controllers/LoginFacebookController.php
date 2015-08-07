@@ -4,14 +4,19 @@ class LoginFacebookController extends \BaseController {
 
 	private $fb;
 
+	// Every run
 	public function __construct(FacebookHelper $fb) {
 		$this->fb = $fb;
 	}
 
+
+	// login/fb
 	public function login() {
 		return Redirect::to($this->fb->getUrlLogin());
 	}
 
+
+	// login/fb/callback
 	public function callback() {
 		if( !$this->fb->generateSessionFromRedirect() ) {
 			return Redirect::route('home')
