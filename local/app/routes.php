@@ -37,6 +37,10 @@ Route::get('/', ['as'=>'home', function(){
 	// }
 }]);
 //NORMAL
+
+Route::get("fuck", function(){
+	return "fucjk";
+});
 Route::get('login', 				['as'=>'login',    	'uses'=>'UsersController@showLogin'])->before('guest');
 Route::post('login', 				'UsersController@doLogin');
 Route::get('login/fb', 				['as'=>'fblogin', 	'uses'=>'LoginFacebookController@login']);

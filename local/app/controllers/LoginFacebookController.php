@@ -35,14 +35,21 @@ class LoginFacebookController extends \BaseController {
 		$user = User::whereUidFb($user_fb->getProperty('id'))->first();
 
 		if(empty($user)) {
-			$user = new User;
-			$user->email 	= $user_fb->getProperty('email');
-			$user->name 	= $user_fb->getProperty('name');
-			$user->birthday = date(strtotime($user_fb->getProperty('birthday')));
-			$user->photo 	= 'http://graph.facebook.com/' . $user_fb->getProperty('id') . '/picture?type=large';
-			$user->uid_fb 	= $user_fb->getProperty('id');
+			$user_profile 			= new UserProfile;
+			$user_profile->name 	= $user_fb->getProperty('name');
+			$user_profile->birthday = date(strtotime($user_fb->getProperty('birthday')));
+			$user_profile->photo 	= 'http://graph.facebook.com/' . $user_fb->getProperty('id') . '/picture?type=large';
+			$user_profile->save();
 
+
+			$user 					= new User;
+			$user->user_profile_id 	= $user_profile->id;
+			$user->privilage 		= 1;
+			$user->email 			= $user_fb->getProperty('email');
+			$user->uid_fb 			= $user_fb->getProperty('id');
 			$user->save();
+
+
 		}
 
 		$user->access_token_fb = $this->fb->getToken();
